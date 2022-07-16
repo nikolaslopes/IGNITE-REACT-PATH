@@ -1,0 +1,61 @@
+{
+  "continents": [
+    {
+      "id": 1,
+      "name": "Europe",
+      "info": "O continente mais antigo.",
+      "resume": "A Europa é, por convenção, um dos seis continentes do mundo. Compreendendo a península ocidental da Eurásia, a Europa geralmente divide-se da Ásia a leste pela divisória de águas dos montes Urais, o rio Ural, o mar Cáspio, o Cáucaso, e o mar Negro a sudeste",
+      "main_image": "https://images.unsplash.com/photo-1485081669829-bacb8c7bb1f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+      "secondary_image": "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2202&q=80",
+      "meta": {
+        "countries_amount": 50,
+        "languages_amount": 60,
+        "cities_amount": {
+          "head": 24,
+          "total": 100
+        }
+      },
+      "cities": [
+        {
+          "id": 10,
+          "name": "Londres",
+          "capital": "Reino Unido",
+          "thumb": "https://images.unsplash.com/photo-1520986606214-8b456906c813?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+          "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png"
+        },
+        {
+          "id": 20,
+          "name": "Paris",
+          "capital": "França",
+          "thumb": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2373&q=80",
+          "flag": "https://investkaluga.com/portal/uploads/sections/8e57a90afd5a44a92f96.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "America",
+      "info": "O maior continente.",
+      "resume": "A Europa é, por convenção, um dos seis continentes do mundo. Compreendendo a península ocidental da Eurásia, a Europa geralmente divide-se da Ásia a leste pela divisória de águas dos montes Urais, o rio Ural, o mar Cáspio, o Cáucaso, e o mar Negro a sudeste",
+      "main_image": "https://images.unsplash.com/photo-1501466044931-62695aada8e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2174&q=80",
+      "secondary_image": "https://images.unsplash.com/photo-1464660756002-dd9f9a92b01b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2302&q=80",
+      "meta": {
+        "countries_amount": 20,
+        "languages_amount": 10,
+        "cities_amount": {
+          "head": 20,
+          "total": 90
+        }
+      },
+      "cities": [
+        {
+          "id": 40,
+          "name": "New York",
+          "capital": "New York State",
+          "thumb": "https://images.unsplash.com/photo-1605130284535-11dd9eedc58a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3132&q=80",
+          "logo": "https://cdn.britannica.com/14/3014-004-BD154711/flag-New-York-color-uniforms-facings-American-1909.jpg"
+        }
+      ]
+    }
+  ]
+}
