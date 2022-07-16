@@ -6,6 +6,7 @@ import { FormEvent, useState } from 'react'
 import { useAuthContext } from '../context/useAuthContext'
 import { TOKEN_NAME } from '../context/utils'
 import styles from '../styles/Home.module.css'
+import { withSSRGuest } from '../utils/withSSRGuest'
 
 const Home: NextPage = () => {
   const { signIn } = useAuthContext()
@@ -58,19 +59,6 @@ const Home: NextPage = () => {
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('ctx', context.req.cookies)
-  const cookies = parseCookies(context)
-
-  if (cookies[TOKEN_NAME]) {
-    return {
-      redirect: {
-        destination: '/dashboard',
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: {},
-  }
-}
+export const getServerSideProps = withSSRGuest(async (context) => {
+  return { props: {} }
+})
