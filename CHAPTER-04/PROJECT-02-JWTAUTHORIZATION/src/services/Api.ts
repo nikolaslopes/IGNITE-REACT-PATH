@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosError } from 'axios'
+import axios, { AxiosError } from 'axios'
 import { parseCookies } from 'nookies'
 import { IUser } from '../context/types'
 import {

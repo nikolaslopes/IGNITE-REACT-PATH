@@ -1,10 +1,7 @@
-import type { GetServerSideProps, NextPage } from 'next'
-import { redirect } from 'next/dist/server/api-utils'
+import type { NextPage } from 'next'
 import Head from 'next/head'
-import { parseCookies } from 'nookies'
 import { FormEvent, useState } from 'react'
 import { useAuthContext } from '../context/useAuthContext'
-import { TOKEN_NAME } from '../context/utils'
 import styles from '../styles/Home.module.css'
 import { withSSRGuest } from '../utils/withSSRGuest'
 
