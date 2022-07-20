@@ -1,7 +1,6 @@
 import Router from 'next/router'
 import { parseCookies } from 'nookies'
 import { createContext, useEffect, useState } from 'react'
-import { setupAPIClient } from '../services/Api'
 import { Api } from '../services/ApiClient'
 import {
   AuthContextData,
@@ -23,7 +22,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const { NEXT_AUTH_BASE_TOKEN: token } = parseCookies()
 
     if (token) {
-      setupAPIClient
       Api.get<IUser>('/me')
         .then((response) => {
           const { email, permissions, roles } = response.data
