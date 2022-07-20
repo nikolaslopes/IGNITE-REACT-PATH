@@ -19,6 +19,7 @@ export const setUserRefreshToken = (
   context: GetServerSidePropsContext | undefined,
   refreshToken: string
 ) => {
+  console.log(context)
   setCookie(context, REFRESH_TOKEN_NAME, refreshToken, {
     maxAge: 60 * 60 * 24 * 30, // 30 days
     path: '/',
