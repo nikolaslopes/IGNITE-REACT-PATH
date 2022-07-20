@@ -53,6 +53,10 @@ Api.interceptors.response.use(
             .catch((err) => {
               failedRequestsQueue.forEach((request) => request.onError(err))
               failedRequestsQueue = []
+
+              if (typeof window !== 'undefined') {
+                signOut()
+              }
             })
             .finally(() => {
               isRefreshing = false
@@ -76,7 +80,9 @@ Api.interceptors.response.use(
           })
         })
       } else {
-        signOut()
+        if (typeof window !== 'undefined') {
+          signOut()
+        }
       }
     }
 
