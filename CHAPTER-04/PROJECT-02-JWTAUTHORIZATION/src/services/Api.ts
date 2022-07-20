@@ -12,11 +12,12 @@ export interface IAxiosErrorResponse {
   code?: string
 }
 
-let cookies = parseCookies()
 let isRefreshing = false
 let failedRequestsQueue: any[] = []
 
-export function setupAPIClient() {
+export function setupAPIClient(context = undefined) {
+  let cookies = parseCookies(context)
+
   const Api = axios.create({
     baseURL: 'http://localhost:3333',
   })
@@ -30,7 +31,7 @@ export function setupAPIClient() {
     (error: AxiosError<IAxiosErrorResponse>) => {
       if (error.response?.status === 401) {
         if (error.response?.data?.code === 'token.expired') {
-          cookies = parseCookies()
+          cookies = parseCookies(context)
 
           const { NEXT_AUTH_REFRESH_TOKEN: refreshToken } = cookies
           const originalConfig = error.config
@@ -44,8 +45,8 @@ export function setupAPIClient() {
               .then((response) => {
                 const { token } = response.data
 
-                setUserToken(token)
-                setUserRefreshToken(response.data.refreshToken)
+                setUserToken(context, token)
+                setUserRefreshToken(context, response.data.refreshToken)
 
                 Api.defaults.headers.common.Authorization = `Bearer ${token}`
                 failedRequestsQueue.forEach((request) =>
