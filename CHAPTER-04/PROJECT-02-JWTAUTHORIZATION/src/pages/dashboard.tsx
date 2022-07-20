@@ -20,6 +20,10 @@ export default function Dashboard() {
 }
 
 export const getServerSideProps = withSSRAuth(async (context) => {
+  const res = await Api.get('/me')
+
+  console.log(res.data)
+
   return {
     props: {},
   }
