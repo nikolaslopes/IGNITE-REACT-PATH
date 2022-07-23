@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>Olá, {user?.email}!</h1>
+      <h1>Hi, {user?.email}!</h1>
     </>
   )
 }
