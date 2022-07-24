@@ -32,9 +32,23 @@
 
 .btn {
   width: 10rem;
-  border: 2px solid #831dbd;
-  border-radius: 4px;
-  padding: 10px;
+  border: 1px solid #FFFFFF;
+  background-color: #831dbd;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px;
   cursor: pointer;
   margin-top: 2rem;
+
+  transition: all 0.2s ease
+}
+
+.btn:hover {
+  background-color: #9242c1;
+  
+}
+
+.btn:active {
+  background-color: #69119c;
+  
 }
