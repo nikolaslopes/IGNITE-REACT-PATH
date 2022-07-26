@@ -3,7 +3,7 @@ import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
 } from 'next'
-import { destroyCookie, parseCookies } from 'nookies'
+import { parseCookies } from 'nookies'
 import { destroyUserCookies, TOKEN_NAME } from '../context/utils'
 import { AuthTokenError } from '../services/errors/AuthTokenError'
 
