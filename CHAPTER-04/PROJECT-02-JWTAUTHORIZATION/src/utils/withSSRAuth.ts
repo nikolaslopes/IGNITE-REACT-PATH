@@ -4,11 +4,18 @@ import {
   GetServerSidePropsResult,
 } from 'next'
 import { parseCookies } from 'nookies'
+import decode from 'jwt-decode'
 import { destroyUserCookies, TOKEN_NAME } from '../context/utils'
 import { AuthTokenError } from '../services/errors/AuthTokenError'
 
+type WithSSRAuthOptions = {
+  permissions?: string[]
+  roles?: string[]
+}
+
 export function withSSRAuth<P extends { [key: string]: any }>(
-  fn: GetServerSideProps<P>
+  fn: GetServerSideProps<P>,
+  options?: WithSSRAuthOptions
 ) {
   return async (
     context: GetServerSidePropsContext
@@ -24,6 +31,9 @@ export function withSSRAuth<P extends { [key: string]: any }>(
         },
       }
     }
+
+    const user = decode(token)
+    console.log('token decode', user)
 
     try {
       return await fn(context)
