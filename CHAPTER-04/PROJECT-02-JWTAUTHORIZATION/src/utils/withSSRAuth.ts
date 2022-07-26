@@ -7,6 +7,7 @@ import { parseCookies } from 'nookies'
 import decode from 'jwt-decode'
 import { destroyUserCookies, TOKEN_NAME } from '../context/utils'
 import { AuthTokenError } from '../services/errors/AuthTokenError'
+import { validateUserPermissions } from './validateUserPermissions'
 
 type WithSSRAuthOptions = {
   permissions?: string[]
@@ -32,8 +33,27 @@ export function withSSRAuth<P extends { [key: string]: any }>(
       }
     }
 
-    const user = decode(token)
-    console.log('token decode', user)
+    if (options) {
+      const user = decode<{ permissions: string[]; roles: string[] }>(token)
+
+      console.log(user)
+      const { permissions, roles } = options
+
+      const userHasValidPermissions = validateUserPermissions({
+        user,
+        permissions,
+        roles,
+      })
+
+      if (!userHasValidPermissions) {
+        return {
+          redirect: {
+            destination: '/dashboard',
+            permanent: false,
+          },
+        }
+      }
+    }
 
     try {
       return await fn(context)
