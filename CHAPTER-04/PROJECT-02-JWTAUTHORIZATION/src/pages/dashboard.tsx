@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 import { useAuthContext } from '../context/useAuthContext'
-import { destroyUserCookies } from '../context/utils'
 import { Api } from '../services/Api'
-import { AuthTokenError } from '../services/errors/AuthTokenError'
 import { setupAPIClient } from '../services/setupAPIClient'
 
 import { withSSRAuth } from '../utils/withSSRAuth'
@@ -25,21 +23,9 @@ export default function Dashboard() {
 
 export const getServerSideProps = withSSRAuth(async (context) => {
   const ApiClient = setupAPIClient(context)
+  const response = await ApiClient.get('/me')
 
-  try {
-    const response = await ApiClient.get('/me')
-  } catch (err) {
-    console.log(err)
-
-    destroyUserCookies(context)
-
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
+  console.log(response.data)
 
   return {
     props: {},

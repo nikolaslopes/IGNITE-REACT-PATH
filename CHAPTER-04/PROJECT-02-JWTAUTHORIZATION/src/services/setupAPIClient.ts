@@ -91,10 +91,8 @@ export function setupAPIClient(
           })
         } else {
           if (typeof window !== 'undefined') {
-            console.log('1')
             signOut()
           } else {
-            console.log('2')
             return Promise.reject(new AuthTokenError())
           }
         }

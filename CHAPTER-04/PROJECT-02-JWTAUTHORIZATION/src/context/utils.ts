@@ -26,8 +26,8 @@ export const setUserRefreshToken = (
 }
 
 export const signOut = () => {
-  destroyCookie(undefined, TOKEN_NAME, { path: '/' })
-  destroyCookie(undefined, REFRESH_TOKEN_NAME, { path: '/' })
+  destroyCookie(undefined, TOKEN_NAME)
+  destroyCookie(undefined, REFRESH_TOKEN_NAME)
   Router.push('/')
 }
 
