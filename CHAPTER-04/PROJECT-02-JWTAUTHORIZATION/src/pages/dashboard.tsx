@@ -23,9 +23,20 @@ export default function Dashboard() {
 
 export const getServerSideProps = withSSRAuth(async (context) => {
   const ApiClient = setupAPIClient(context)
-  const response = await ApiClient.get('/me')
 
-  console.log('res', response)
+  try {
+    const response = await ApiClient.get('/me')
+    console.log('res', response)
+  } catch (err) {
+    console.log(err)
+
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {},
