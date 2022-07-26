@@ -30,3 +30,10 @@ export const signOut = () => {
   destroyCookie(undefined, REFRESH_TOKEN_NAME, { path: '/' })
   Router.push('/')
 }
+
+export const destroyUserCookies = (
+  context: GetServerSidePropsContext | undefined
+) => {
+  destroyCookie(context, TOKEN_NAME)
+  destroyCookie(context, REFRESH_TOKEN_NAME)
+}

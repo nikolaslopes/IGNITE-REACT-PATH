@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useAuthContext } from '../context/useAuthContext'
+import { destroyUserCookies } from '../context/utils'
 import { Api } from '../services/Api'
+import { AuthTokenError } from '../services/errors/AuthTokenError'
 import { setupAPIClient } from '../services/setupAPIClient'
 
 import { withSSRAuth } from '../utils/withSSRAuth'
@@ -26,9 +28,10 @@ export const getServerSideProps = withSSRAuth(async (context) => {
 
   try {
     const response = await ApiClient.get('/me')
-    console.log('res', response)
   } catch (err) {
     console.log(err)
+
+    destroyUserCookies(context)
 
     return {
       redirect: {

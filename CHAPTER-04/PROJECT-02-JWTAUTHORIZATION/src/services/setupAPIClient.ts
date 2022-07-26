@@ -43,6 +43,8 @@ export function setupAPIClient(
           if (!isRefreshing) {
             isRefreshing = true
 
+            console.log(`refresh`)
+
             Api.post<Pick<IUser, 'token' | 'refreshToken'>>('/refresh', {
               refreshToken,
             })
@@ -89,9 +91,11 @@ export function setupAPIClient(
           })
         } else {
           if (typeof window !== 'undefined') {
+            console.log('1')
             signOut()
           } else {
-            Promise.reject(new AuthTokenError())
+            console.log('2')
+            return Promise.reject(new AuthTokenError())
           }
         }
       }
