@@ -19,7 +19,6 @@ export const setUserRefreshToken = (
   context: GetServerSidePropsContext | undefined,
   refreshToken: string
 ) => {
-  console.log(context)
   setCookie(context, REFRESH_TOKEN_NAME, refreshToken, {
     maxAge: 60 * 60 * 24 * 30, // 30 days
     path: '/',
@@ -27,7 +26,7 @@ export const setUserRefreshToken = (
 }
 
 export const signOut = () => {
-  destroyCookie(undefined, TOKEN_NAME)
-  destroyCookie(undefined, REFRESH_TOKEN_NAME)
+  destroyCookie(undefined, TOKEN_NAME, { path: '/' })
+  destroyCookie(undefined, REFRESH_TOKEN_NAME, { path: '/' })
   Router.push('/')
 }

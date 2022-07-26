@@ -8,6 +8,7 @@ import {
   signOut,
   TOKEN_NAME,
 } from '../context/utils'
+import { AuthTokenError } from './errors/AuthTokenError'
 
 export interface IAxiosErrorResponse {
   code?: string
@@ -89,6 +90,8 @@ export function setupAPIClient(
         } else {
           if (typeof window !== 'undefined') {
             signOut()
+          } else {
+            Promise.reject(new AuthTokenError())
           }
         }
       }
