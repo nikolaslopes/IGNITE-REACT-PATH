@@ -23,7 +23,7 @@ export function useCan({ permissions = [], roles = [] }: UseCanParams) {
   }
 
   if (roles.length > 0) {
-    const hasAllRoles = roles.every((role) => {
+    const hasAllRoles = roles.some((role) => {
       return user?.roles.includes(role)
     })
 
@@ -31,4 +31,6 @@ export function useCan({ permissions = [], roles = [] }: UseCanParams) {
       return false
     }
   }
+
+  return true
 }
