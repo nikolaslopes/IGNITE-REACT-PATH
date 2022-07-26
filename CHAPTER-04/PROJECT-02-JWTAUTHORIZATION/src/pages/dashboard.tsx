@@ -1,3 +1,4 @@
+import Router from 'next/router'
 import { useEffect } from 'react'
 import { Can } from '../components/Can'
 import { useAuthContext } from '../context/useAuthContext'
@@ -5,6 +6,8 @@ import { Api } from '../services/Api'
 import { setupAPIClient } from '../services/setupAPIClient'
 
 import { withSSRAuth } from '../utils/withSSRAuth'
+
+import styles from '../styles/Home.module.css'
 
 export default function Dashboard() {
   const { user } = useAuthContext()
@@ -28,6 +31,10 @@ export default function Dashboard() {
       <Can permissions={['metrics.list', 'users.list']}>
         {<h3>You has permissions to see metrics</h3>}
       </Can>
+
+      <button className={styles.btn} onClick={() => Router.push('/metrics')}>
+        Go to metrics
+      </button>
     </>
   )
 }
