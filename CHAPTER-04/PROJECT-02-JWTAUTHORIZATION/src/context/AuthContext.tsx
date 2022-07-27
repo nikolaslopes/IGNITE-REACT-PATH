@@ -21,9 +21,7 @@ let authChannel: BroadcastChannel
 
 export function signOut(sendBroadcastMessage = true) {
   destroyCookie(undefined, TOKEN_NAME)
-  destroyCookie(undefined, TOKEN_NAME)
-
-  console.log('called')
+  destroyCookie(undefined, REFRESH_TOKEN_NAME)
 
   if (sendBroadcastMessage) {
     authChannel.postMessage('signOut')
