@@ -1,7 +1,8 @@
 import { ReactNode } from 'react'
 
 export interface AuthContextData {
-  signIn(credentials: ISignInCredentials): Promise<void>
+  signIn: (credentials: ISignInCredentials) => Promise<void>
+  signOut: () => void
   user: Pick<IUser, 'email' | 'permissions' | 'roles'> | undefined
   isAuthenticated: boolean
 }

@@ -25,15 +25,16 @@ export const setUserRefreshToken = (
   })
 }
 
-export const signOut = () => {
-  destroyCookie(undefined, TOKEN_NAME)
-  destroyCookie(undefined, REFRESH_TOKEN_NAME)
-  Router.push('/')
-}
-
 export const destroyUserCookies = (
   context: GetServerSidePropsContext | undefined
 ) => {
   destroyCookie(context, TOKEN_NAME)
   destroyCookie(context, REFRESH_TOKEN_NAME)
+}
+
+export const signOut = (callBroadcast: boolean = true) => {
+  destroyCookie(undefined, TOKEN_NAME)
+  destroyCookie(undefined, REFRESH_TOKEN_NAME)
+
+  Router.push('/')
 }

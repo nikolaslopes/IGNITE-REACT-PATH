@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import { parseCookies } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
 import { createContext, useEffect, useState } from 'react'
 import { Api } from '../services/Api'
 import {
@@ -8,15 +8,48 @@ import {
   ISignInCredentials,
   IUser,
 } from './types'
-import { setUserRefreshToken, setUserToken, signOut } from './utils'
+import {
+  REFRESH_TOKEN_NAME,
+  setUserRefreshToken,
+  setUserToken,
+  TOKEN_NAME,
+} from './utils'
 
 export const AuthContext = createContext({} as AuthContextData)
+
+let authChannel: BroadcastChannel
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] =
     useState<Pick<IUser, 'email' | 'permissions' | 'roles'>>()
 
   const isAuthenticated = !!user
+
+  const signOut = () => {
+    destroyCookie(undefined, TOKEN_NAME)
+    destroyCookie(undefined, REFRESH_TOKEN_NAME)
+
+    authChannel.postMessage('signOut')
+
+    Router.push('/')
+  }
+
+  useEffect(() => {
+    authChannel = new BroadcastChannel('auth')
+
+    authChannel.onmessage = (message) => {
+      console.log('message', message)
+      switch (message.data) {
+        case 'signOut':
+          Router.push('/')
+          break
+        case 'signIn':
+          Router.reload()
+        default:
+          break
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const { NEXT_AUTH_BASE_TOKEN: token } = parseCookies()
@@ -34,7 +67,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
   }, [])
 
-  async function signIn({ email, password }: ISignInCredentials) {
+  const signIn = async ({ email, password }: ISignInCredentials) => {
     try {
       const response = await Api.post<IUser>('sessions', {
         email,
@@ -55,13 +88,14 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       Api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       Router.push('/dashboard')
+      authChannel.postMessage('signIn')
     } catch (err) {
       console.log(err)
     }
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   )

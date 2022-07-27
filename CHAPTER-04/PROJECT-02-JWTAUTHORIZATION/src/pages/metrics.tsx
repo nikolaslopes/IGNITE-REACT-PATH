@@ -3,6 +3,7 @@ import { setupAPIClient } from '../services/setupAPIClient'
 import { withSSRAuth } from '../utils/withSSRAuth'
 
 import styles from '../styles/Home.module.css'
+import { ButtonSignOut } from '../components/ButtonSignOut'
 
 export default function Metrics() {
   return (
@@ -13,6 +14,8 @@ export default function Metrics() {
       <button className={styles.btn} onClick={() => Router.push('/dashboard')}>
         Go to Dashboard
       </button>
+
+      <ButtonSignOut />
     </>
   )
 }
