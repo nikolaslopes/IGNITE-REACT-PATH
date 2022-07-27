@@ -12,7 +12,6 @@ import {
   REFRESH_TOKEN_NAME,
   setUserRefreshToken,
   setUserToken,
-  signOut,
   TOKEN_NAME,
 } from './utils'
 
@@ -20,20 +19,24 @@ export const AuthContext = createContext({} as AuthContextData)
 
 let authChannel: BroadcastChannel
 
+export function signOut(sendBroadcastMessage = true) {
+  destroyCookie(undefined, TOKEN_NAME)
+  destroyCookie(undefined, TOKEN_NAME)
+
+  console.log('called')
+
+  if (sendBroadcastMessage) {
+    authChannel.postMessage('signOut')
+  }
+
+  Router.push('/')
+}
+
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] =
     useState<Pick<IUser, 'email' | 'permissions' | 'roles'>>()
 
   const isAuthenticated = !!user
-
-  // const signOut = () => {
-  //   destroyCookie(undefined, TOKEN_NAME)
-  //   destroyCookie(undefined, REFRESH_TOKEN_NAME)
-
-  //   authChannel.postMessage('signOut')
-
-  //   Router.push('/')
-  // }
 
   useEffect(() => {
     authChannel = new BroadcastChannel('auth')
@@ -42,8 +45,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       console.log('message', message)
       switch (message.data) {
         case 'signOut':
-          destroyCookie(undefined, TOKEN_NAME)
-          destroyCookie(undefined, TOKEN_NAME)
+          signOut(false)
           Router.push('/')
           break
         case 'signIn':
@@ -90,8 +92,10 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
       Api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
+      if (authChannel) {
+        authChannel.postMessage('signIn')
+      }
       Router.push('/dashboard')
-      authChannel.postMessage('signIn')
     } catch (err) {
       console.log(err)
     }

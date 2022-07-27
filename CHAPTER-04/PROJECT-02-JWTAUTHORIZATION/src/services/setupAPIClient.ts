@@ -1,13 +1,9 @@
 import axios, { AxiosError } from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import { parseCookies } from 'nookies'
+import { signOut } from '../context/AuthContext'
 import { IUser } from '../context/types'
-import {
-  setUserRefreshToken,
-  setUserToken,
-  signOut,
-  TOKEN_NAME,
-} from '../context/utils'
+import { setUserRefreshToken, setUserToken, TOKEN_NAME } from '../context/utils'
 import { AuthTokenError } from './errors/AuthTokenError'
 
 export interface IAxiosErrorResponse {
