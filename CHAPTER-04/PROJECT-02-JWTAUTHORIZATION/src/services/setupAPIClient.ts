@@ -61,7 +61,7 @@ export function setupAPIClient(
                 failedRequestsQueue = []
 
                 if (typeof window !== 'undefined') {
-                  signOut(false)
+                  signOut()
                 }
               })
               .finally(() => {

@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       console.log('message', message)
       switch (message.data) {
         case 'signOut':
-          signOut(false)
           Router.push('/')
           break
         case 'signIn':
