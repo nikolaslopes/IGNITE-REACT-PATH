@@ -4,6 +4,7 @@ import { destroyCookie, setCookie } from 'nookies'
 
 export const TOKEN_NAME = 'NEXT_AUTH_BASE_TOKEN'
 export const REFRESH_TOKEN_NAME = 'NEXT_AUTH_REFRESH_TOKEN'
+let authChannel: BroadcastChannel
 
 export const setUserToken = (
   context: GetServerSidePropsContext | undefined,
@@ -32,9 +33,11 @@ export const destroyUserCookies = (
   destroyCookie(context, REFRESH_TOKEN_NAME)
 }
 
-export const signOut = (callBroadcast: boolean = true) => {
+export const signOut = () => {
   destroyCookie(undefined, TOKEN_NAME)
   destroyCookie(undefined, REFRESH_TOKEN_NAME)
+
+  authChannel.postMessage('signOut')
 
   Router.push('/')
 }

@@ -12,6 +12,7 @@ import {
   REFRESH_TOKEN_NAME,
   setUserRefreshToken,
   setUserToken,
+  signOut,
   TOKEN_NAME,
 } from './utils'
 
@@ -25,14 +26,14 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
   const isAuthenticated = !!user
 
-  const signOut = () => {
-    destroyCookie(undefined, TOKEN_NAME)
-    destroyCookie(undefined, REFRESH_TOKEN_NAME)
+  // const signOut = () => {
+  //   destroyCookie(undefined, TOKEN_NAME)
+  //   destroyCookie(undefined, REFRESH_TOKEN_NAME)
 
-    authChannel.postMessage('signOut')
+  //   authChannel.postMessage('signOut')
 
-    Router.push('/')
-  }
+  //   Router.push('/')
+  // }
 
   useEffect(() => {
     authChannel = new BroadcastChannel('auth')
@@ -41,10 +42,12 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       console.log('message', message)
       switch (message.data) {
         case 'signOut':
+          destroyCookie(undefined, TOKEN_NAME)
+          destroyCookie(undefined, TOKEN_NAME)
           Router.push('/')
           break
         case 'signIn':
-          Router.reload()
+          Router.push('/dashboard')
         default:
           break
       }
@@ -95,7 +98,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ signIn, isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   )
