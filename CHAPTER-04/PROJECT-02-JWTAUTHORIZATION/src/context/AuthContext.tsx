@@ -90,10 +90,8 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
       Api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-      if (authChannel) {
-        authChannel.postMessage('signIn')
-      }
       Router.push('/dashboard')
+      authChannel.postMessage('signIn')
     } catch (err) {
       console.log(err)
     }
