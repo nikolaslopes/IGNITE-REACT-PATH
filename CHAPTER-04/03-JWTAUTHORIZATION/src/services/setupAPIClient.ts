@@ -31,7 +31,7 @@ export function setupAPIClient(
     (error: AxiosError<IAxiosErrorResponse>) => {
       if (error.response?.status === 401) {
         if (error.response?.data?.code === 'token.expired') {
-          cookies = parseCookies(context)
+          cookies = parseCookies()
 
           const { NEXT_AUTH_REFRESH_TOKEN: refreshToken } = cookies
           const originalConfig = error.config
