@@ -17,14 +17,24 @@ export default function Home(): JSX.Element {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    'images',
-    // TODO AXIOS REQUEST WITH PARAM
-    ,
-    // TODO GET AND RETURN NEXT PAGE PARAM
+    ['images'],
+    async ({ pageParam = null }) => {
+      const response = await api.get('/api/images', {
+        params: { afterAll: pageParam },
+      });
+
+      console.log(response.data);
+      return response.data;
+    },
+    {
+      getNextPageParam: lastPage => lastPage.after || null,
+    }
   );
 
   const formattedData = useMemo(() => {
-    // TODO FORMAT AND FLAT DATA ARRAY
+    return data?.pages.flatMap(page => {
+      return page.data.flat();
+    });
   }, [data]);
 
   // TODO RENDER LOADING SCREEN
@@ -36,7 +46,7 @@ export default function Home(): JSX.Element {
       <Header />
 
       <Box maxW={1120} px={20} mx="auto" my={20}>
-        <CardList cards={formattedData} />
+        {/* <CardList cards={formattedData} /> */}
         {/* TODO RENDER LOAD MORE BUTTON IF DATA HAS NEXT PAGE */}
       </Box>
     </>
