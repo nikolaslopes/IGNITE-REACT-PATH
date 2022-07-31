@@ -14,6 +14,7 @@ interface FormAddImageProps {
 export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const [imageUrl, setImageUrl] = useState('');
   const [localImageUrl, setLocalImageUrl] = useState('');
+
   const toast = useToast();
 
   const formValidations = {
@@ -21,7 +22,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
       required: 'Arquivo obrigatório',
       validate: {
         lessThan10MB: (v: FileList) => {
-          console.log('item', v);
           const file = v.item(0);
           const tenMegaBytesInBytes = 10000000;
 
@@ -63,8 +63,10 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async (data: Record<string, unknown>) => {
-      const response = await api.post('api/images', {
-        data,
+      const response = await api.post('/api/images', {
+        url: imageUrl,
+        title: data.title,
+        description: data.description,
       });
 
       return response.data;
@@ -89,12 +91,13 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
             'É preciso adicionar e aguardar o upload de uma imagem antes de realizar o cadastro.',
           status: 'info',
         });
-        return null;
+        return;
       }
       mutation.mutateAsync(data);
+
       toast({
         title: 'Imagem cadastrada',
-        description: 'ua imagem foi cadastrada com sucesso.',
+        description: 'Sua imagem foi cadastrada com sucesso.',
         status: 'success',
       });
     } catch {
@@ -105,6 +108,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
       });
     } finally {
       reset();
+      setImageUrl('');
+      setLocalImageUrl('');
       closeModal();
     }
   };
@@ -118,19 +123,19 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           setLocalImageUrl={setLocalImageUrl}
           setError={setError}
           trigger={trigger}
-          // error={errors?.image}
+          error={errors?.image}
           {...register('image', formValidations.description)}
         />
 
         <TextInput
           placeholder="Título da imagem..."
-          // error={errors.title}
+          error={errors.title}
           {...register('title', formValidations.title)}
         />
 
         <TextInput
           placeholder="Descrição da imagem..."
-          // error={errors.description}
+          error={errors.description}
           {...register('description', formValidations.description)}
         />
       </Stack>
