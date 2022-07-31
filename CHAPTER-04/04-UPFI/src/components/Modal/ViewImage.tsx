@@ -38,14 +38,8 @@ export function ModalViewImage({
           justifyContent="flex-start"
           paddingX="10px"
         >
-          <Link
-            href={imgUrl}
-            cursor="pointer"
-            target="_blank"
-            rel="nofollow"
-            fontSize="14px"
-          >
-            Abir original
+          <Link href={imgUrl} target="_blank" rel="nofollow" fontSize="14px">
+            Abrir original
           </Link>
         </ModalFooter>
       </ModalContent>

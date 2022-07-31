@@ -63,7 +63,7 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async (data: Record<string, unknown>) => {
-      const response = await api.post('api/images', {
+      const response = await api.post('/api/images', {
         url: imageUrl,
         title: data.title,
         description: data.description,
@@ -91,12 +91,13 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
             'É preciso adicionar e aguardar o upload de uma imagem antes de realizar o cadastro.',
           status: 'info',
         });
-        return null;
+        return;
       }
       mutation.mutateAsync(data);
+
       toast({
         title: 'Imagem cadastrada',
-        description: 'ua imagem foi cadastrada com sucesso.',
+        description: 'Sua imagem foi cadastrada com sucesso.',
         status: 'success',
       });
     } catch {
@@ -107,6 +108,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
       });
     } finally {
       reset();
+      setImageUrl('');
+      setLocalImageUrl('');
       closeModal();
     }
   };
