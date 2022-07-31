@@ -32,6 +32,22 @@ export function ModalViewImage({
         <ModalBody padding="0">
           <Image src={imgUrl} width="100%" maxWidth="900px" maxHeight="600px" />
         </ModalBody>
+
+        <ModalFooter
+          bgColor="gray.800"
+          justifyContent="flex-start"
+          paddingX="10px"
+        >
+          <Link
+            href={imgUrl}
+            cursor="pointer"
+            target="_blank"
+            rel="nofollow"
+            fontSize="14px"
+          >
+            Abir original
+          </Link>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
