@@ -18,22 +18,50 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const formValidations = {
     image: {
-      // TODO REQUIRED, LESS THAN 10 MB AND ACCEPTED FORMATS VALIDATIONS
+      required: 'Arquivo obrigatório',
+      validate: {
+        lessThan10MB: (v: FileList) => {
+          console.log('item', v);
+          const file = v.item(0);
+          const tenMegaBytesInBytes = 10000000;
+
+          return (
+            file.size < tenMegaBytesInBytes ||
+            'O arquivo deve ser meno que 10mb'
+          );
+        },
+        acceptedFormats: (v: FileList) => {
+          const file = v.item(0);
+          const isFileTypeValid = /^png | gif | jpeg$/.test(file.type);
+
+          return (
+            isFileTypeValid || 'Somente são aceitos arquivos PNG, JPEG e GIF'
+          );
+        },
+      },
     },
     title: {
-      // TODO REQUIRED, MIN AND MAX LENGTH VALIDATIONS
+      required: 'Título obrigatório',
+      minLength: {
+        value: 2,
+        message: 'Mínimo de 2 caracteres',
+      },
+      maxLength: {
+        value: 20,
+        message: 'Máximo de 20 caracteres',
+      },
     },
     description: {
-      // TODO REQUIRED, MAX LENGTH VALIDATIONS
+      required: 'Descrição obrigatória',
+      value: 65,
+      message: 'Máximo de 265 caracteres',
     },
   };
 
   const queryClient = useQueryClient();
   const mutation = useMutation(
     // TODO MUTATION API POST REQUEST,
-    {
-      // TODO ONSUCCESS MUTATION
-    }
+    {}
   );
 
   const { register, handleSubmit, reset, formState, setError, trigger } =
