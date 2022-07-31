@@ -53,15 +53,27 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
     },
     description: {
       required: 'Descrição obrigatória',
-      value: 65,
-      message: 'Máximo de 265 caracteres',
+      maxLength: {
+        value: 65,
+        message: 'Máximo de 265 caracteres',
+      },
     },
   };
 
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    // TODO MUTATION API POST REQUEST,
-    {}
+    async (data: Record<string, unknown>) => {
+      const response = await api.post('api/images', {
+        data,
+      });
+
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('images');
+      },
+    }
   );
 
   const { register, handleSubmit, reset, formState, setError, trigger } =
@@ -70,13 +82,28 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
     try {
-      // TODO SHOW ERROR TOAST IF IMAGE URL DOES NOT EXISTS
-      // TODO EXECUTE ASYNC MUTATION
-      // TODO SHOW SUCCESS TOAST
+      if (!imageUrl) {
+        toast({
+          title: 'Imagem não adicionada',
+          description:
+            'É preciso adicionar e aguardar o upload de uma imagem antes de realizar o cadastro.',
+        });
+        return null;
+      }
+      mutation.mutateAsync(data);
+      toast({
+        title: 'Imagem cadastrada',
+        description: 'ua imagem foi cadastrada com sucesso.',
+      });
     } catch {
-      // TODO SHOW ERROR TOAST IF SUBMIT FAILED
+      toast({
+        title: 'Falha no cadastro',
+        description: 'Ocorreu um erro ao tentar cadastrar a sua imagem.',
+      });
     } finally {
       // TODO CLEAN FORM, STATES AND CLOSE MODAL
+      reset();
+      closeModal();
     }
   };
 
@@ -89,7 +116,7 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           setLocalImageUrl={setLocalImageUrl}
           setError={setError}
           trigger={trigger}
-          // error={errors.image}
+          // error={errors?.image}
           {...register('image', formValidations.description)}
         />
 
