@@ -37,7 +37,13 @@ export default function Home(): JSX.Element {
     });
   }, [data]);
 
-  // TODO RENDER LOADING SCREEN
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <Error />;
+  }
 
   // TODO RENDER ERROR SCREEN
 
