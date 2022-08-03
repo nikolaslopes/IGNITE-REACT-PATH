@@ -10,15 +10,18 @@ const Home: NextPage = () => {
     <main className={styles.main}>
       <h1>Search</h1>
 
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className={styles.form}>
         <input
           className={styles.input}
           type="text"
+          placeholder="Type here..."
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
 
-        <button type="button">Search product</button>
+        <button type="button" className={styles.btn}>
+          Search product
+        </button>
       </form>
     </main>
   )
