@@ -1,14 +1,7 @@
 import React from 'react'
+import { IProduct } from '../Interface/global'
 
-interface IProductItem {
-  product: {
-    id: number
-    price: number
-    title: string
-  }
-}
-
-export function ProductItem({ product }: IProductItem) {
+export function ProductItem({ product }: IProduct) {
   return (
     <div>
       {product.title} - <strong>{product.price}</strong>

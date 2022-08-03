@@ -1,19 +1,12 @@
 import React from 'react'
+import { IProducts } from '../Interface/global'
 import { ProductItem } from './ProductItem'
 
-interface IResults {
-  results: Array<{
-    id: number
-    price: number
-    title: string
-  }>
-}
-
-export function SearchResults({ results }: IResults) {
+export function SearchResults({ products }: IProducts) {
   return (
     <div>
-      {results.map((result) => {
-        return <ProductItem key={result.id} product={result} />
+      {products.map(({ product }) => {
+        return <ProductItem key={product.id} product={product} />
       })}
     </div>
   )

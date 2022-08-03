@@ -6,6 +6,7 @@ const Home: NextPage = () => {
   const [search, setSearch] = useState('')
 
   function handleSearch() {}
+
   return (
     <main className={styles.main}>
       <h1>Search</h1>
