@@ -2,11 +2,15 @@ import { memo } from 'react'
 import { IProduct } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
-function ProductItemComponent({ product }: IProduct) {
+function ProductItemComponent({ product, onAddToWishList }: IProduct) {
   return (
     <div className={styles['product-item']}>
       {product.title} - <strong>{product.price}</strong>
-      <button type="button" className={styles.btn}>
+      <button
+        type="button"
+        className={styles.btn}
+        onClick={() => onAddToWishList(product.id)}
+      >
         Add to wish list
       </button>
     </div>

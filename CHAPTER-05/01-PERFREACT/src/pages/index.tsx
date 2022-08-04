@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 import { SearchProducts } from '../components/SearchProducts'
 import styles from '../styles/Home.module.css'
 
@@ -20,7 +20,9 @@ const Home: NextPage = () => {
     setProducts(data)
   }
 
-  function onAddToWishList() {}
+  const onAddToWishList = useCallback(async (id: number) => {
+    console.log(id)
+  }, [])
 
   return (
     <main className={styles.main}>
