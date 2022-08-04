@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { FormEvent, useCallback, useState } from 'react'
 import { SearchProducts } from '../components/SearchProducts'
-import { IHome, IProduct } from '../Interfaces/global'
+import { IHome, IProducts } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -19,13 +19,27 @@ const Home: NextPage = () => {
     }
 
     const response = await fetch(`http://localhost:3333/products?q=${search}`)
-    const data = await response.json()
+    const data: Pick<IProducts, 'products'> = await response.json()
 
-    const totalPrice = data.reduce((acc: number, { product }: IProduct) => {
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    })
+
+    const products = data.products.map((product) => {
+      return {
+        id: product.id,
+        price: product.price,
+        priceFormatterd: formatter.format(product.price),
+        title: product.title,
+      }
+    })
+
+    const totalPrice = data.products.reduce((acc: number, product) => {
       return acc + product.price
     }, 0)
 
-    setResults({ products: data, totalPrice: totalPrice })
+    setResults({ products: products, totalPrice: totalPrice })
   }
 
   const onAddToWishList = useCallback(async (id: number) => {
