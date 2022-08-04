@@ -4,6 +4,7 @@ export interface IProduct {
     price: number
     title: string
   }
+  onAddToWishList: (id: number) => void
 }
 
 export interface IProducts {
@@ -12,4 +13,5 @@ export interface IProducts {
     price: number
     title: string
   }>
+  onAddToWishList: (id: number) => void
 }

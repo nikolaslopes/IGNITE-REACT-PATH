@@ -20,6 +20,8 @@ const Home: NextPage = () => {
     setProducts(data)
   }
 
+  function onAddToWishList() {}
+
   return (
     <main className={styles.main}>
       <h1>Search</h1>
@@ -39,7 +41,7 @@ const Home: NextPage = () => {
       </form>
 
       <div className={styles['products-list']}>
-        <SearchProducts products={products} />
+        <SearchProducts products={products} onAddToWishList={onAddToWishList} />
       </div>
     </main>
   )

@@ -1,10 +1,14 @@
 import { memo } from 'react'
 import { IProduct } from '../Interfaces/global'
+import styles from '../styles/Home.module.css'
 
 function ProductItemComponent({ product }: IProduct) {
   return (
-    <div>
+    <div className={styles['product-item']}>
       {product.title} - <strong>{product.price}</strong>
+      <button type="button" className={styles.btn}>
+        Add to wish list
+      </button>
     </div>
   )
 }
@@ -17,7 +21,7 @@ export const ProductItem = memo(
 )
 
 /**
- * ? React Reconciliation
+ * ? React Reconciliation -> Igualdade referencial
  * 1. Criar uma nova versão do componente
  * 2. Comparar com a versão anterior
  * 3. Se houverem alterações, o que alterou será atualizado
