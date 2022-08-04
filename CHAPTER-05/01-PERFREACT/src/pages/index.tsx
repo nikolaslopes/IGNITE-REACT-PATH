@@ -38,7 +38,9 @@ const Home: NextPage = () => {
         </button>
       </form>
 
-      <SearchProducts products={products} />
+      <div className={styles['products-list']}>
+        <SearchProducts products={products} />
+      </div>
     </main>
   )
 }
