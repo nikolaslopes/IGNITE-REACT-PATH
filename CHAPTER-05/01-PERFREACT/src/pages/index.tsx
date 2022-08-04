@@ -1,11 +1,25 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
+import { SearchProducts } from '../components/SearchProducts'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState('')
+  const [products, setProducts] = useState([])
 
-  function handleSearch() {}
+  async function handleSearch(event: FormEvent) {
+    event.preventDefault()
+
+    if (!search.trim()) {
+      return
+    }
+
+    const response = await fetch(`http://localhost:3333/products?q=${search}`)
+    const data = await response.json()
+
+    setProducts(data)
+  }
+
   return (
     <main className={styles.main}>
       <h1>Search</h1>
@@ -19,10 +33,14 @@ const Home: NextPage = () => {
           onChange={(event) => setSearch(event.target.value)}
         />
 
-        <button type="button" className={styles.btn}>
+        <button type="submit" className={styles.btn}>
           Search product
         </button>
       </form>
+
+      <div className={styles['products-list']}>
+        <SearchProducts products={products} />
+      </div>
     </main>
   )
 }
