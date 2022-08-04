@@ -7,5 +7,9 @@ export interface IProduct {
 }
 
 export interface IProducts {
-  products: Array<IProduct>
+  products: Array<{
+    id: number
+    price: number
+    title: string
+  }>
 }

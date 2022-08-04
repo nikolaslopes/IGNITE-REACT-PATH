@@ -1,5 +1,4 @@
-import React from 'react'
-import { IProduct } from '../Interface/global'
+import { IProduct } from '../Interfaces/global'
 
 export function ProductItem({ product }: IProduct) {
   return (
