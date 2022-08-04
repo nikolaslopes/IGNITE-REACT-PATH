@@ -11,7 +11,7 @@ export interface IProductItem {
 
 export interface ISearchProducts {
   products: Array<IProduct>
-  totalPrice: number
+  totalPrice: string
   onAddToWishList: (id: number) => void
 }
 

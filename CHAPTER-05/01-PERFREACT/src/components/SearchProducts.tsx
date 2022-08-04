@@ -9,7 +9,7 @@ export function SearchProducts({
 }: ISearchProducts) {
   return (
     <div>
-      <h4>Total price: {totalPrice} R$</h4>
+      <h4>Total price: {totalPrice}</h4>
       <br />
       {products.map((product) => {
         return (

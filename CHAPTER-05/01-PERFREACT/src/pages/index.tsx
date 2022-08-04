@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 const Home: NextPage = () => {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState<IHome>({
-    totalPrice: 0,
+    totalPrice: '',
     products: [],
   })
 
@@ -29,15 +29,16 @@ const Home: NextPage = () => {
     const products = data.map((product: IProduct) => {
       return {
         id: product.id,
-        price: product.price,
-        priceFormatterd: formatter.format(product.price),
+        price: formatter.format(product.price),
         title: product.title,
       }
     })
 
-    const totalPrice = data.reduce((acc: number, product: IProduct) => {
-      return acc + product.price
-    }, 0)
+    const totalPrice = formatter.format(
+      data.reduce((acc: number, product: IProduct) => {
+        return acc + product.price
+      }, 0)
+    )
 
     setResults({ products: products, totalPrice: totalPrice })
   }
