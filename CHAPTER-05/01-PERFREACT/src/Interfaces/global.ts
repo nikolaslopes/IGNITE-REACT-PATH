@@ -13,5 +13,8 @@ export interface IProducts {
     price: number
     title: string
   }>
+  totalPrice: number
   onAddToWishList: (id: number) => void
 }
+
+export type IHome = Pick<IProducts, 'products' | 'totalPrice'>

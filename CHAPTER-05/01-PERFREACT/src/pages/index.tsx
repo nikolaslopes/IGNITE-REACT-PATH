@@ -1,11 +1,15 @@
 import type { NextPage } from 'next'
 import { FormEvent, useCallback, useState } from 'react'
 import { SearchProducts } from '../components/SearchProducts'
+import { IHome, IProduct } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState('')
-  const [products, setProducts] = useState([])
+  const [results, setResults] = useState<IHome>({
+    totalPrice: 0,
+    products: [],
+  })
 
   async function handleSearch(event: FormEvent) {
     event.preventDefault()
@@ -17,7 +21,11 @@ const Home: NextPage = () => {
     const response = await fetch(`http://localhost:3333/products?q=${search}`)
     const data = await response.json()
 
-    setProducts(data)
+    const totalPrice = data.reduce((acc: number, { product }: IProduct) => {
+      return acc + product.price
+    }, 0)
+
+    setResults({ products: data, totalPrice: totalPrice })
   }
 
   const onAddToWishList = useCallback(async (id: number) => {
@@ -43,7 +51,11 @@ const Home: NextPage = () => {
       </form>
 
       <div className={styles['products-list']}>
-        <SearchProducts products={products} onAddToWishList={onAddToWishList} />
+        <SearchProducts
+          products={results.products}
+          totalPrice={results.totalPrice}
+          onAddToWishList={onAddToWishList}
+        />
       </div>
     </main>
   )
