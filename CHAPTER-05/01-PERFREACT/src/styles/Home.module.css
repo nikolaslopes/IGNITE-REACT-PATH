@@ -43,3 +43,10 @@
   border: 1px solid white;
   padding: 1rem;
 }
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
