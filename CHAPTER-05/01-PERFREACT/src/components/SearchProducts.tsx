@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
-import { IProducts } from '../Interfaces/global'
+import { ISearchProducts } from '../Interfaces/global'
 import { ProductItem } from './ProductItem'
 
 export function SearchProducts({
   products,
   totalPrice,
   onAddToWishList,
-}: IProducts) {
+}: ISearchProducts) {
   return (
     <div>
       <h4>Total price: {totalPrice} R$</h4>

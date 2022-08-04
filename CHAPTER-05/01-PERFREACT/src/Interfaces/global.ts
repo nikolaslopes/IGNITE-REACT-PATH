@@ -1,20 +1,18 @@
 export interface IProduct {
-  product: {
-    id: number
-    price: number
-    title: string
-  }
+  id: number
+  price: number
+  title: string
+}
+
+export interface IProductItem {
+  product: IProduct
   onAddToWishList: (id: number) => void
 }
 
-export interface IProducts {
-  products: Array<{
-    id: number
-    price: number
-    title: string
-  }>
+export interface ISearchProducts {
+  products: Array<IProduct>
   totalPrice: number
   onAddToWishList: (id: number) => void
 }
 
-export type IHome = Pick<IProducts, 'products' | 'totalPrice'>
+export type IHome = Pick<ISearchProducts, 'products' | 'totalPrice'>

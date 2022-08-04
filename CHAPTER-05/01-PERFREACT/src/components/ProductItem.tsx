@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { IProduct } from '../Interfaces/global'
+import { IProductItem } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
-function ProductItemComponent({ product, onAddToWishList }: IProduct) {
+function ProductItemComponent({ product, onAddToWishList }: IProductItem) {
   return (
     <div className={styles['product-item']}>
       {product.title} - <strong>{product.price}</strong>

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { FormEvent, useCallback, useState } from 'react'
 import { SearchProducts } from '../components/SearchProducts'
-import { IHome, IProducts } from '../Interfaces/global'
+import { IHome, IProduct } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -19,14 +19,14 @@ const Home: NextPage = () => {
     }
 
     const response = await fetch(`http://localhost:3333/products?q=${search}`)
-    const data: Pick<IProducts, 'products'> = await response.json()
+    const data = await response.json()
 
     const formatter = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     })
 
-    const products = data.products.map((product) => {
+    const products = data.map((product: IProduct) => {
       return {
         id: product.id,
         price: product.price,
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
       }
     })
 
-    const totalPrice = data.products.reduce((acc: number, product) => {
+    const totalPrice = data.reduce((acc: number, product: IProduct) => {
       return acc + product.price
     }, 0)
 
