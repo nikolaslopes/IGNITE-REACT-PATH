@@ -44,7 +44,7 @@ const Home: NextPage = () => {
   }
 
   const onAddToWishList = useCallback(async (id: number) => {
-    console.log(id)
+    alert(`Product ${id} add to wishlist!`)
   }, [])
 
   return (

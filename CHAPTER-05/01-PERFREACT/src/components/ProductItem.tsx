@@ -21,10 +21,13 @@ function ProductItemComponent({
           Add to wish list
         </button>
       </section>
-      <AddProductToWishList
-        dispatchOnAddToWishList={() => onAddProductToWishList(product.id)}
-        onRequestClose={() => setIsAddingToWishList(false)}
-      />
+
+      {isAddingToWishList && (
+        <AddProductToWishList
+          dispatchOnAddToWishList={() => onAddProductToWishList(product.id)}
+          onRequestClose={() => setIsAddingToWishList(false)}
+        />
+      )}
     </div>
   )
 }

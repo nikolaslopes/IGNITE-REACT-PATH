@@ -18,7 +18,7 @@ export function AddProductToWishList({
       <button
         type="button"
         className={`${styles.btn} ${styles['btn-space']}`}
-        onClick={onAddToWishList}
+        onClick={onRequestClose}
       >
         No
       </button>
