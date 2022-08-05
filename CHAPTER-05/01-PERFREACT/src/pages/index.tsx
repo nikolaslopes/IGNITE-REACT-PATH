@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 import { FormEvent, useCallback, useState } from 'react'
 import { SearchProducts } from '../components/SearchProducts'
-import { IHome, IProducts } from '../Interfaces/global'
+import { IHome, IProduct } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState<IHome>({
-    totalPrice: 0,
+    totalPrice: '',
     products: [],
   })
 
@@ -19,31 +19,32 @@ const Home: NextPage = () => {
     }
 
     const response = await fetch(`http://localhost:3333/products?q=${search}`)
-    const data: Pick<IProducts, 'products'> = await response.json()
+    const data = await response.json()
 
     const formatter = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     })
 
-    const products = data.products.map((product) => {
+    const products = data.map((product: IProduct) => {
       return {
         id: product.id,
-        price: product.price,
-        priceFormatterd: formatter.format(product.price),
+        price: formatter.format(product.price),
         title: product.title,
       }
     })
 
-    const totalPrice = data.products.reduce((acc: number, product) => {
-      return acc + product.price
-    }, 0)
+    const totalPrice = formatter.format(
+      data.reduce((acc: number, product: IProduct) => {
+        return acc + product.price
+      }, 0)
+    )
 
     setResults({ products: products, totalPrice: totalPrice })
   }
 
   const onAddToWishList = useCallback(async (id: number) => {
-    console.log(id)
+    alert(`Product ${id} add to wishlist!`)
   }, [])
 
   return (
@@ -59,7 +60,11 @@ const Home: NextPage = () => {
           onChange={(event) => setSearch(event.target.value)}
         />
 
-        <button type="submit" className={styles.btn}>
+        <button
+          type="submit"
+          className={styles.btn}
+          disabled={search.length === 0}
+        >
           Search product
         </button>
       </form>
@@ -68,7 +73,7 @@ const Home: NextPage = () => {
         <SearchProducts
           products={results.products}
           totalPrice={results.totalPrice}
-          onAddToWishList={onAddToWishList}
+          onAddProductToWishList={onAddToWishList}
         />
       </div>
     </main>

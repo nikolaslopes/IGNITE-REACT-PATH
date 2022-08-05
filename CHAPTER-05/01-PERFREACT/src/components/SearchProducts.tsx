@@ -1,22 +1,22 @@
 import { useMemo } from 'react'
-import { IProducts } from '../Interfaces/global'
+import { ISearchProducts } from '../Interfaces/global'
 import { ProductItem } from './ProductItem'
 
 export function SearchProducts({
   products,
   totalPrice,
-  onAddToWishList,
-}: IProducts) {
+  onAddProductToWishList: onAddToWishList,
+}: ISearchProducts) {
   return (
     <div>
-      <h4>Total price: {totalPrice} R$</h4>
+      <h4>Total price: {totalPrice}</h4>
       <br />
       {products.map((product) => {
         return (
           <ProductItem
             key={product.id}
             product={product}
-            onAddToWishList={onAddToWishList}
+            onAddProductToWishList={onAddToWishList}
           />
         )
       })}

@@ -1,20 +1,23 @@
 export interface IProduct {
-  product: {
-    id: number
-    price: number
-    title: string
-  }
-  onAddToWishList: (id: number) => void
+  id: number
+  price: number
+  title: string
 }
 
-export interface IProducts {
-  products: Array<{
-    id: number
-    price: number
-    title: string
-  }>
-  totalPrice: number
-  onAddToWishList: (id: number) => void
+export interface IAddProductToWishList {
+  dispatchOnAddToWishList: () => void
+  onRequestClose: () => void
 }
 
-export type IHome = Pick<IProducts, 'products' | 'totalPrice'>
+export interface IProductItem {
+  product: IProduct
+  onAddProductToWishList: (id: number) => void
+}
+
+export interface ISearchProducts {
+  products: Array<IProduct>
+  totalPrice: string
+  onAddProductToWishList: (id: number) => void
+}
+
+export type IHome = Pick<ISearchProducts, 'products' | 'totalPrice'>

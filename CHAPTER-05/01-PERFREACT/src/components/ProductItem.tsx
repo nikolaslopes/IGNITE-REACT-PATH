@@ -1,18 +1,44 @@
-import { memo } from 'react'
-import { IProduct } from '../Interfaces/global'
+import dynamic from 'next/dynamic'
+import { memo, useState } from 'react'
+import { IAddProductToWishList, IProductItem } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
-function ProductItemComponent({ product, onAddToWishList }: IProduct) {
+const AddProductToWishList = dynamic<IAddProductToWishList>(
+  () => {
+    return import('./AddProductToWishList').then(
+      (module) => module.AddProductToWishList
+    )
+  },
+  {
+    loading: () => <span>Loading...</span>,
+  }
+)
+
+function ProductItemComponent({
+  product,
+  onAddProductToWishList,
+}: IProductItem) {
+  const [isAddingToWishList, setIsAddingToWishList] = useState(false)
+
   return (
     <div className={styles['product-item']}>
-      {product.title} - <strong>{product.price}</strong>
-      <button
-        type="button"
-        className={styles.btn}
-        onClick={() => onAddToWishList(product.id)}
-      >
-        Add to wish list
-      </button>
+      <section>
+        {product.title} - <strong>{product.price}</strong>
+        <button
+          type="button"
+          className={`${styles.btn} ${styles['btn-space']}`}
+          onClick={() => setIsAddingToWishList(true)}
+        >
+          Add to wish list
+        </button>
+      </section>
+
+      {isAddingToWishList && (
+        <AddProductToWishList
+          dispatchOnAddToWishList={() => onAddProductToWishList(product.id)}
+          onRequestClose={() => setIsAddingToWishList(false)}
+        />
+      )}
     </div>
   )
 }
