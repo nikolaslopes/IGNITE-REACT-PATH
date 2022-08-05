@@ -1,9 +1,14 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { IProductItem } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 import { AddProductToWishList } from './AddProductToWishList'
 
-function ProductItemComponent({ product, onAddToWishList }: IProductItem) {
+function ProductItemComponent({
+  product,
+  onAddProductToWishList,
+}: IProductItem) {
+  const [isAddingToWishList, setIsAddingToWishList] = useState(false)
+
   return (
     <div className={styles['product-item']}>
       <section>
@@ -11,12 +16,15 @@ function ProductItemComponent({ product, onAddToWishList }: IProductItem) {
         <button
           type="button"
           className={`${styles.btn} ${styles['btn-space']}`}
-          onClick={() => onAddToWishList(product.id)}
+          onClick={() => setIsAddingToWishList(true)}
         >
           Add to wish list
         </button>
       </section>
-      <AddProductToWishList />
+      <AddProductToWishList
+        dispatchOnAddToWishList={() => onAddProductToWishList(product.id)}
+        onRequestClose={() => setIsAddingToWishList(false)}
+      />
     </div>
   )
 }

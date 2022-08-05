@@ -69,7 +69,7 @@ const Home: NextPage = () => {
         <SearchProducts
           products={results.products}
           totalPrice={results.totalPrice}
-          onAddToWishList={onAddToWishList}
+          onAddProductToWishList={onAddToWishList}
         />
       </div>
     </main>

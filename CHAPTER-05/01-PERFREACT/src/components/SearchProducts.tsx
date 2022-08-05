@@ -5,7 +5,7 @@ import { ProductItem } from './ProductItem'
 export function SearchProducts({
   products,
   totalPrice,
-  onAddToWishList,
+  onAddProductToWishList: onAddToWishList,
 }: ISearchProducts) {
   return (
     <div>
@@ -16,7 +16,7 @@ export function SearchProducts({
           <ProductItem
             key={product.id}
             product={product}
-            onAddToWishList={onAddToWishList}
+            onAddProductToWishList={onAddToWishList}
           />
         )
       })}
