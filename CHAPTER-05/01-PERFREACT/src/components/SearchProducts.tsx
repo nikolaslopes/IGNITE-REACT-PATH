@@ -1,25 +1,36 @@
-import { useMemo } from 'react'
 import { ISearchProducts } from '../Interfaces/global'
 import { ProductItem } from './ProductItem'
+import { List, ListRowRenderer } from 'react-virtualized'
 
 export function SearchProducts({
   products,
   totalPrice,
-  onAddProductToWishList: onAddToWishList,
+  onAddProductToWishList,
 }: ISearchProducts) {
+  const rowRenderer: ListRowRenderer = ({ index, key, style }) => {
+    return (
+      <div key={key} style={style}>
+        <ProductItem
+          product={products[index]}
+          onAddProductToWishList={onAddProductToWishList}
+        />
+      </div>
+    )
+  }
+
   return (
     <div>
       <h4>Total price: {totalPrice}</h4>
       <br />
-      {products.map((product) => {
-        return (
-          <ProductItem
-            key={product.id}
-            product={product}
-            onAddProductToWishList={onAddToWishList}
-          />
-        )
-      })}
+
+      <List
+        height={400}
+        rowHeight={70}
+        width={900}
+        overscanRowCount={5}
+        rowCount={products.length}
+        rowRenderer={rowRenderer}
+      />
     </div>
   )
 }
