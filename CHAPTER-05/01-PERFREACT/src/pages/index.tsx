@@ -60,7 +60,11 @@ const Home: NextPage = () => {
           onChange={(event) => setSearch(event.target.value)}
         />
 
-        <button type="submit" className={styles.btn}>
+        <button
+          type="submit"
+          className={styles.btn}
+          disabled={search.length === 0}
+        >
           Search product
         </button>
       </form>

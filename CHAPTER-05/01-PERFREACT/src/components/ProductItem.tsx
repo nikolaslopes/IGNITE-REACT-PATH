@@ -1,7 +1,18 @@
+import dynamic from 'next/dynamic'
 import { memo, useState } from 'react'
-import { IProductItem } from '../Interfaces/global'
+import { IAddProductToWishList, IProductItem } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
-import { AddProductToWishList } from './AddProductToWishList'
+
+const AddProductToWishList = dynamic<IAddProductToWishList>(
+  () => {
+    return import('./AddProductToWishList').then(
+      (module) => module.AddProductToWishList
+    )
+  },
+  {
+    loading: () => <span>Loading...</span>,
+  }
+)
 
 function ProductItemComponent({
   product,
