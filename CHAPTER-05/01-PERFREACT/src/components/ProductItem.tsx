@@ -1,18 +1,22 @@
 import { memo } from 'react'
 import { IProductItem } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
+import { AddProductToWishList } from './AddProductToWishList'
 
 function ProductItemComponent({ product, onAddToWishList }: IProductItem) {
   return (
     <div className={styles['product-item']}>
-      {product.title} - <strong>{product.price}</strong>
-      <button
-        type="button"
-        className={styles.btn}
-        onClick={() => onAddToWishList(product.id)}
-      >
-        Add to wish list
-      </button>
+      <section>
+        {product.title} - <strong>{product.price}</strong>
+        <button
+          type="button"
+          className={`${styles.btn} ${styles['btn-space']}`}
+          onClick={() => onAddToWishList(product.id)}
+        >
+          Add to wish list
+        </button>
+      </section>
+      <AddProductToWishList />
     </div>
   )
 }
