@@ -59,3 +59,14 @@
   width: 100%;
   padding: 1rem 0;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
