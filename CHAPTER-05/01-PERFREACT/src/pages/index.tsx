@@ -5,6 +5,7 @@ import { IHome, IProduct } from '../Interfaces/global'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const [date, setDate] = useState('')
   const [search, setSearch] = useState('')
   const [results, setResults] = useState<IHome>({
     totalPrice: '',
@@ -47,9 +48,24 @@ const Home: NextPage = () => {
     alert(`Product ${id} add to wishlist!`)
   }, [])
 
+  const formatDate = async () => {
+    const { format } = await import('date-fns')
+
+    setDate(format(new Date(), "'Today is a' eeee"))
+  }
+
   return (
     <main className={styles.main}>
-      <h1>Search</h1>
+      <section className={styles.header}>
+        <h1>Search</h1>
+
+        <div className={styles.date}>
+          <button className={styles.btn} onClick={() => formatDate()}>
+            call date-fns
+          </button>
+          <b>{date}</b>
+        </div>
+      </section>
 
       <form onSubmit={handleSearch} className={styles.form}>
         <input
