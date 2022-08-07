@@ -1,9 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-
 import { getPrismicClient } from '../../services/prismic'
-
 import PostPreview, { getStaticProps } from '../../pages/posts/preview/[slug]'
 
 jest.mock('next-auth/react')
@@ -13,7 +11,7 @@ jest.mock('../../services/prismic')
 const post = {
   slug: 'my-new-post',
   title: 'My New Post',
-  content: '<p>Post content</p>',
+  content: '<p>Post excerpt</p>',
   updatedAt: '10 de Abril',
 }
 
@@ -28,9 +26,9 @@ describe('Post preview page', () => {
 
     render(<PostPreview post={post} />)
 
-    expect(screen.getByText(/my new post/i)).toBeInTheDocument()
-    expect(screen.getByText(/post content/i)).toBeInTheDocument()
-    expect(screen.getByText(/wanna continue reading?/i)).toBeInTheDocument()
+    expect(screen.getByText('My New Post')).toBeInTheDocument()
+    expect(screen.getByText('Post excerpt')).toBeInTheDocument()
+    expect(screen.getByText('Wanna continue reading?')).toBeInTheDocument()
   })
 
   it('redirects user to full post when user is subscribed', async () => {
