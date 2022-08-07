@@ -1,4 +1,4 @@
-export const fakeUser = {
+export const userAuthenticatedMock = {
   data: {
     user: {
       name: 'John Doe',

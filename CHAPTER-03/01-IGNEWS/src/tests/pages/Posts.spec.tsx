@@ -1,7 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import Posts, { getStaticProps } from '../../pages/posts'
 import { getPrismicClient } from '../../services/prismic'
-import { posts } from '../mocks/posts'
+
+export const posts = [
+  {
+    slug: 'my-new-post',
+    title: 'My New Post',
+    excerpt: 'Post excerpt',
+    updatedAt: '10 de Abril 2022',
+  },
+]
 
 jest.mock('../../services/prismic')
 
