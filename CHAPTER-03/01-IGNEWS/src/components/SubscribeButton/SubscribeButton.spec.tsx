@@ -3,6 +3,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 import { SubscribeButton } from '.'
+import { fakeUser } from '../../tests/mocks/user'
 
 jest.mock('next-auth/react')
 jest.mock('next/router')
@@ -45,17 +46,7 @@ describe('SubscribeButton component', () => {
     const useSessionMocked = jest.mocked(useSession)
     const pushMock = jest.fn()
 
-    useSessionMocked.mockReturnValueOnce({
-      data: {
-        user: {
-          name: 'John Doe',
-          email: 'johndoe@example.com',
-        },
-        activeSubscription: 'fake-active-subscription',
-        expires: 'fake-expires',
-      },
-      status: 'authenticated',
-    })
+    useSessionMocked.mockReturnValueOnce(fakeUser)
 
     useRouterMocked.mockReturnValueOnce({
       push: pushMock,

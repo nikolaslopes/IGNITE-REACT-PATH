@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { useSession } from 'next-auth/react'
 
 import { SignInButton } from '.'
+import { fakeUser } from '../../tests/mocks/user'
 
 jest.mock('next-auth/react')
 
@@ -22,16 +23,7 @@ describe('SignInButton component', () => {
   it('renders correctly when user IS authenticated', () => {
     const useSessionMocked = jest.mocked(useSession)
 
-    useSessionMocked.mockReturnValueOnce({
-      data: {
-        user: {
-          name: 'John Doe',
-          email: 'johndoe@exanple.com',
-        },
-        expires: 'fake-expires',
-      },
-      status: 'authenticated',
-    })
+    useSessionMocked.mockReturnValueOnce(fakeUser)
 
     render(<SignInButton />)
 
