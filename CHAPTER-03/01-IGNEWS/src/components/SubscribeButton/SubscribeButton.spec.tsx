@@ -41,7 +41,7 @@ describe('SubscribeButton component', () => {
     expect(signInMocked).toHaveBeenCalled()
   })
 
-  it('redirects to posts when user already has a subscription', () => {
+  it('redirects to posts when user already HAS a subscription', () => {
     const useRouterMocked = jest.mocked(useRouter)
     const useSessionMocked = jest.mocked(useSession)
     const pushMock = jest.fn()
