@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import { RichText } from 'prismic-dom'
 import { useEffect } from 'react'
 import { getPrismicClient } from '../../../services/prismic'
-
 import styles from '../post.module.scss'
 
 interface IPostPreview {

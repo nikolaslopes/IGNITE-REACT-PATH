@@ -2,7 +2,13 @@ import { render, screen } from '@testing-library/react'
 import { getSession } from 'next-auth/react'
 import Post, { getServerSideProps } from '../../pages/posts/[slug]'
 import { getPrismicClient } from '../../services/prismic'
-import { post } from '../mocks/post'
+
+const post = {
+  slug: 'my-new-post',
+  title: 'My New Post',
+  content: '<p>Post excerpt</p>',
+  updatedAt: '10 de Abril',
+}
 
 jest.mock('next-auth/react')
 jest.mock('../../services/prismic')
