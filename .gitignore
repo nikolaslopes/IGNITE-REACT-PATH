@@ -1,1 +1,27 @@
-**/.DS_Store
+.DS_Store
+
+# dependencies
+node_modules
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+
+coverage/
+chrome-user-data
+
+#React DevTools
+packages/react-devtools-core/dist
+packages/react-devtools-extensions/chrome/build
+packages/react-devtools-extensions/chrome/*.crx
+packages/react-devtools-extensions/chrome/*.pem
+packages/react-devtools-extensions/firefox/build
+packages/react-devtools-extensions/firefox/*.xpi
+packages/react-devtools-extensions/firefox/*.pem
+packages/react-devtools-extensions/shared/build
+packages/react-devtools-extensions/.tempUserDataDir
+packages/react-devtools-inline/dist
+packages/react-devtools-shell/dist
+packages/react-devtools-scheduling-profiler/dist
